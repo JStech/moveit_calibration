@@ -55,18 +55,13 @@ void TFFrameNameComboBox::mousePressEvent(QMouseEvent* event)
     for (const std::string& name : names)
     {
       auto it = std::find(robot_links.begin(), robot_links.end(), name);
-      size_t index = name.find("camera");
 
       if (frame_source_ == ROBOT_FRAME)
         if (it != robot_links.end())
           addItem(QString(name.c_str()));
 
-      if (frame_source_ == CAMERA_FRAME)
-        if (index != std::string::npos)
-          addItem(QString(name.c_str()));
-
-      if (frame_source_ == ENVIRONMENT_FRAME)
-        if (it == robot_links.end() && index == std::string::npos)
+      if (frame_source_ == CAMERA_FRAME || frame_source_ == ENVIRONMENT_FRAME)
+        if (it == robot_links.end())
           addItem(QString(name.c_str()));
     }
   }
